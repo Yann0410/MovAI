@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>MovAI</title>
+	<meta charset="utf-8">
+	<link rel="stylesheet" type="text/css" href="css/estilo.css">
+</head>
+<body>
+
+	<div id="container"><!-- inicio container-->
+		<div id="topo"><!-- inicio topo-->
+			
+			<div id="area-logo">
+				<h1 class="logo">
+					<a href="">MovAI</a>
+				</h1>
+			</div>
+
+			<div id="area-menu">
+				<div id="conteudo-menu">
+					
+					<div id="menu-locais">
+						<span class="locais">
+							Compre nossas moedas: 
+						</span>
+						<a class="reserva" href="ComprarMoedas.html">Adquirir moedas</a>
+						<div style="clear: both;"></div>
+					</div>
+
+					<div id="menu">
+						<ul id="navegacao">
+							<li><a href="">Home</a></li>
+							<li><a href="Cadastro.html">Cadastro</a></li>
+							<li><a href="Login.html">Login</a></li>
+							<li><a href="GerarVídeos.html">Gerar vídeos</a></li>
+							<li><a href="Sobre.html">Sobre</a></li>
+							<li><div class="contador-moedas">
+								<h3>Moedas Disponíveis: <span id="moedas-contador">0</span></h3>
+							</div></li>
+						</ul>
+
+					</div>
+
+				</div>
+			</div>
+
+		</div><!--/ fim topo-->
+
+		<div id="area-principal">
+			<div class="conteudo">
+				<h2>
+					MovAI
+				</h2>
+				<h4>
+					Plataforma Completa
+				</h4>
+					<p>
+						O MovAI oferece recursos de geração de áudio, sons e textos com a IA. Tudo em um único ambiente para a criação dos vídeos.					
+					</p>
+				<h4>
+					Nova Forma de Contar Histórias
+				</h4>	
+					<p>
+						No site, o usuário tem a possibilidade de personalizar os detalhes da sua obra de diversas maneiras, juntando diferentes aspectos tecnológicos (edição de 
+						sons e vídeos, a própria IA etc). Dessa forma, o MovAI inova ao permitir essa mesclagem, aumentando a experiência e interação do público.
+					</p>
+				<h4>
+					Simples e para Todos
+				</h4>
+					<p>
+						Nossa ferramenta busca tornar a criação audiovisual, simples e rápida para que todos, independente da idade ou nível de conhecimento, consigam dar vida às suas ideias. 
+					</p>
+				<h4>
+						Moedas como funcionam?
+				</h4>
+					<p>
+						Cada usuário recebe um número inicial de moedas gratuitamente para gerar seus videos ao se cadastrar na plataforma. Essas moedas serão regeneradas automaticamente ao longo do tempo.
+					</p>
+			</div>
+		</div>
+
+		<div id="area-lateral">
+			<div class="conteudo">
+				
+				<ul id="beneficios">
+					<li>
+						<a href="ComprarMoedas.html">
+							<img src="imagens/img_moeda.jpg" width="150" alt="Apartamento">
+							<h3>Compre nossas moedas</h3>
+							<p>Compre nossas moedas e libere seu potencial criativo! Com elas, você transforma suas imagens em vídeos únicos, explorando efeitos, sons e personalizações incríveis com inteligência artificial. Adicione moedas à sua conta e explore sem esperar!</p>
+						</a>
+					</li>
+				</ul>
+
+			</div>
+		</div>
+
+		<div id="rodape">
+			<span>
+				&copy; Copyright 2000-2024 MovAI
+			</span>
+		</div>
+
+	</div><!--/ fim container-->
+
+    <script>
+        // Carrega a quantidade inicial de moedas do localStorage
+        let moedas = parseInt(localStorage.getItem('moedas')) || 100;
+
+        // Atualiza o contador de moedas na tela
+        function atualizarContadorMoedas() {
+            document.getElementById('moedas-contador').innerText = moedas;
+        }
+
+        // Atualiza o resumo do valor total da compra
+        function atualizarResumo() {
+            const select = document.getElementById('quantidade');
+            const resumo = document.getElementById('resumo-compra');
+            const valores = {
+                "100": "R$ 9,99",
+                "500": "R$ 29,99",
+                "1000": "R$ 45,99",
+            };
+            resumo.innerText = `Total: ${valores[select.value]}`;
+        }
+
+        // Função para adicionar as moedas compradas ao saldo do usuário
+        function adicionarMoedas() {
+            const select = document.getElementById('quantidade');
+            const quantidadeSelecionada = parseInt(select.value);
+            moedas += quantidadeSelecionada; // Adiciona a quantidade selecionada ao total de moedas
+            localStorage.setItem('moedas', moedas); // Salva o saldo atualizado no localStorage
+            atualizarContadorMoedas(); // Atualiza o contador na tela
+            alert(`Compra confirmada! Você recebeu ${quantidadeSelecionada} moedas.`);
+        }
+
+        // Inicializa o contador de moedas ao carregar a página
+        window.onload = atualizarContadorMoedas;
+    </script>
+
+</body>
+</html>

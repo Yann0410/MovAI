@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Login - MovAI</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+        }
+
+        body {
+            background-color: #482674; /* Cor de fundo roxa */
+            color: white;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            margin: 0;
+        }
+
+        nav {
+            background-color: #5c0bb5; /* Cor roxa mais escura para o menu */
+            width: 100%;
+            padding: 15px 0; /* Aumentei o padding para mais espaço */
+            text-align: center;
+            position: fixed;
+            top: 0;
+            left: 0;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2); /* Adiciona uma sombra para destacar o menu */
+            z-index: 1000;
+        }
+
+        nav ul {
+            list-style: none;
+            display: flex;
+            justify-content: center;
+            gap: 30px; /* Espaçamento entre os itens */
+        }
+
+        nav ul li {
+            display: inline;
+        }
+
+        nav ul li a {
+            color: white;
+            text-decoration: none;
+            font-weight: bold;
+            font-size: 18px; /* Aumentei o tamanho da fonte */
+            transition: color 0.3s; /* Adicionei uma transição suave */
+        }
+
+        nav ul li a:hover {
+            color: #91b5be; /* Cor amarela suave ao passar o mouse */
+        }
+
+        .login-container {
+            background-color: #fff;
+            color: #333;
+            width: 100%;
+            max-width: 400px;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
+            margin-top: 60px; /* Ajustei o valor para posicionar o formulário mais para cima */
+            text-align: center;
+        }
+
+        .login-container h2 {
+            margin-bottom: 20px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+            text-align: left;
+        }
+
+        input {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 15px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+        button {
+            width: 100%;
+            padding: 10px;
+            background-color: #6a0dad; /* Cor de botão roxa */
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            transition: background-color 0.3s;
+        }
+
+        button:hover {
+            background-color: #5c0bb5; /* Cor de botão roxa mais escura */
+        }
+
+    </style>
+</head>
+<body>
+    <nav>
+        <ul>
+            <li><a href="Home.html">Home</a></li>
+            <li><a href="Cadastro.html">Cadastro</a></li>
+            <li><a href="Login.html">Login</a></li>
+            <li><a href="GerarVídeos.html">Gerar vídeos</a></li>
+            <li><a href="Sobre.html">Sobre</a></li>
+            <div class="contador-moedas">
+                <h3>Moedas Disponíveis: <span id="moedas-contador">0</span></h3>
+            </div>
+
+        </ul>
+    </nav>
+
+    <div class="login-container">
+        <h2>Login</h2>
+        <form action="processar_login.php" method="post">
+            <label for="email">E-mail:</label>
+            <input type="email" id="email" name="email" required>
+
+            <label for="senha">Senha:</label>
+            <input type="password" id="senha" name="senha" required>
+
+            <button type="submit">Entrar</button>
+        </form>
+    </div>
+
+    <script>
+        // Carrega a quantidade inicial de moedas do localStorage
+        let moedas = parseInt(localStorage.getItem('moedas')) || 100;
+
+        // Atualiza o contador de moedas na tela
+        function atualizarContadorMoedas() {
+            document.getElementById('moedas-contador').innerText = moedas;
+        }
+
+        // Atualiza o resumo do valor total da compra
+        function atualizarResumo() {
+            const select = document.getElementById('quantidade');
+            const resumo = document.getElementById('resumo-compra');
+            const valores = {
+                "100": "R$ 9,99",
+                "500": "R$ 29,99",
+                "1000": "R$ 45,99",
+            };
+            resumo.innerText = `Total: ${valores[select.value]}`;
+        }
+
+        // Função para adicionar as moedas compradas ao saldo do usuário
+        function adicionarMoedas() {
+            const select = document.getElementById('quantidade');
+            const quantidadeSelecionada = parseInt(select.value);
+            moedas += quantidadeSelecionada; // Adiciona a quantidade selecionada ao total de moedas
+            localStorage.setItem('moedas', moedas); // Salva o saldo atualizado no localStorage
+            atualizarContadorMoedas(); // Atualiza o contador na tela
+            alert(`Compra confirmada! Você recebeu ${quantidadeSelecionada} moedas.`);
+        }
+
+        // Inicializa o contador de moedas ao carregar a página
+        window.onload = atualizarContadorMoedas;
+    </script>
+
+</body>
+</html>

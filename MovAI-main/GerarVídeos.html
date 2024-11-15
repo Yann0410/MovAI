@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Geração de vídeos - MovAI</title>
+  <style>
+    /* Reset básico */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: Arial, sans-serif;
+      background: linear-gradient(135deg, #6a0dad, #007bff);
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh;
+      overflow-y: auto;
+    }
+
+    .navbar {
+      width: 100%;
+      background-color: #6a0dad;
+      color: #fff;
+      padding: 10px 0;
+      display: flex;
+      justify-content: center;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    }
+
+    .navbar a {
+      color: #fff;
+      text-decoration: none;
+      padding: 10px 20px;
+      font-size: 16px;
+      transition: background-color 0.3s ease;
+    }
+
+    .navbar a:hover {
+      background-color: #5508a7;
+      border-radius: 5px;
+    }
+
+    .container {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 20px;
+      gap: 20px;
+      min-height: calc(100vh - 60px);
+    }
+
+    .upload-container {
+      background-color: #fff;
+      border-radius: 8px;
+      padding: 20px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      text-align: center;
+      width: 300px;
+    }
+
+    .upload-container h2 {
+      color: #333;
+      margin-bottom: 15px;
+    }
+
+    .preview, .image-preview, .video-preview, .audio-preview {
+      width: 100%;
+      height: 200px;
+      border: 2px dashed #ccc;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 14px;
+      color: #999;
+      margin-bottom: 15px;
+      border-radius: 5px;
+      overflow: hidden;
+    }
+
+    .image-preview img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .upload-btn {
+      display: inline-block;
+      background-color: #6a0dad;
+      color: #fff;
+      padding: 10px 20px;
+      border-radius: 5px;
+      cursor: pointer;
+      text-decoration: none;
+      font-size: 16px;
+      margin-top: 10px;
+      transition: background-color 0.3s ease;
+    }
+
+    .upload-btn:hover {
+      background-color: #5508a7;
+    }
+
+    #generate-video-btn, #generate-audio-btn, #generate-text-btn {
+      background-color: #007bff;
+      margin-top: 15px;
+    }
+
+    #generate-video-btn:hover, #generate-audio-btn:hover, #generate-text-btn:hover {
+      background-color: #0056b3;
+    }
+
+    .contador-moedas {
+      padding-top: 8px;
+    }
+
+    /* Estilizando a área de upload de texto */
+    .text-upload {
+      width: 100%;
+      height: 150px;
+      border: 2px solid #ccc;
+      border-radius: 5px;
+      padding: 10px;
+      font-size: 14px;
+      resize: none;
+      margin-bottom: 15px;
+    }
+  </style>
+</head>
+<body>
+  <!-- Navbar -->
+  <nav class="navbar">
+    <a href="Home.html">Home</a>
+    <a href="ComprarMoedas.html">Comprar moedas</a>
+    <a href="Sobre.html">Sobre</a>
+    <div class="contador-moedas">
+      <h3>Moedas Disponíveis: <span id="moedas-contador">0</span></h3>
+    </div>
+  </nav>
+
+  <div class="container">
+    <!-- Seção de Upload de Imagem -->
+    <div class="upload-container">
+      <h2>Upload de Imagem</h2>
+      <div class="contador-moedas">
+        <h3>Moedas Disponíveis: <span id="moedas-contador-2">0</span></h3>
+      </div>
+      <div class="image-preview" id="imagePreview">
+        <span>Pré-visualização da imagem</span>
+      </div>
+      <input type="file" id="imageUpload" accept="image/*" style="display: none;">
+      <label for="imageUpload" class="upload-btn">Escolher Imagem</label>
+      <button id="generate-video-btn-1" class="upload-btn">Gerar Vídeo</button> <!-- ID único -->
+    </div>
+
+    <!-- Seção de Upload de Vídeo -->
+    <div class="upload-container">
+      <h2>Upload de Vídeo</h2>
+      <div class="contador-moedas">
+        <h3>Moedas Disponíveis: <span id="moedas-contador-3">0</span></h3>
+      </div>
+      <div class="video-preview" id="videoPreview">
+        <span>Pré-visualização do vídeo</span>
+      </div>
+      <input type="file" id="videoUpload" accept="video/*" style="display: none;">
+      <label for="videoUpload" class="upload-btn">Escolher Vídeo</label>
+      <button id="generate-video-btn-2" class="upload-btn">Gerar Vídeo</button> <!-- ID único -->
+    </div>
+
+    <!-- Seção de Upload de Áudio -->
+    <div class="upload-container">
+      <h2>Upload de Áudio</h2>
+      <div class="contador-moedas">
+        <h3>Moedas Disponíveis: <span id="moedas-contador-4">0</span></h3>
+      </div>
+      <div class="audio-preview" id="audioPreview">
+        <span>Pré-visualização do áudio</span>
+      </div>
+      <input type="file" id="audioUpload" accept="audio/*" style="display: none;">
+      <label for="audioUpload" class="upload-btn">Escolher Áudio</label>
+      <button id="generate-audio-btn" class="upload-btn">Gerar Áudio</button>
+    </div>
+
+    <!-- Seção de Upload de Texto -->
+    <div class="upload-container">
+      <h2>Upload de Texto</h2>
+      <div class="contador-moedas">
+        <h3>Moedas Disponíveis: <span id="moedas-contador-5">0</span></h3>
+      </div>
+      <textarea class="text-upload" id="textUpload" placeholder="Digite ou cole seu texto aqui..."></textarea>
+      <button id="generate-text-btn" class="upload-btn">Gerar Conteúdo</button>
+    </div>
+  </div>
+
+  <script>
+    // Carrega a quantidade inicial de moedas do localStorage
+    let moedas = parseInt(localStorage.getItem('moedas')) || 100;
+    const coinCountDisplays = document.querySelectorAll('#moedas-contador, #moedas-contador-2, #moedas-contador-3, #moedas-contador-4, #moedas-contador-5');
+
+    // Atualiza o contador de moedas em todas as exibições
+    function atualizarContadorMoedas() {
+      coinCountDisplays.forEach(display => display.innerText = moedas);
+    }
+
+    // Carregar a pré-visualização da imagem
+    const imageUpload = document.getElementById('imageUpload');
+    const imagePreview = document.getElementById('imagePreview');
+
+    imageUpload.addEventListener('change', function() {
+      const file = this.files[0];
+      if (file) {
+        const reader = new FileReader();
+        reader.onload = function(e) {
+          imagePreview.innerHTML = `<img src="${e.target.result}" alt="Pré-visualização da imagem">`;
+        }
+        reader.readAsDataURL(file);
+      }
+    });
+
+    // Geração de vídeo e desconto de moedas para a imagem
+    const generateVideoBtn1 = document.getElementById('generate-video-btn-1');
+    generateVideoBtn1.addEventListener('click', function() {
+      if (moedas >= 50) {
+        moedas -= 50;
+        localStorage.setItem('moedas', moedas);
+        atualizarContadorMoedas();
+        alert(`Vídeo gerado com sucesso! Saldo restante: ${moedas} moedas.`);
+      } else {
+        alert('Saldo insuficiente para gerar o vídeo. Adquira mais moedas.');
+      }
+    });
+
+    // Carregar a pré-visualização do vídeo
+    const videoUpload = document.getElementById('videoUpload');
+    const videoPreview = document.getElementById('videoPreview');
+
+    videoUpload.addEventListener('change', function() {
+      const file = this.files[0];
+      if (file) {
+        const reader = new FileReader();
+        reader.onload = function(e) {
+          videoPreview.innerHTML = `<video controls><source src="${e.target.result}" type="video/mp4"></video>`;
+        }
+        reader.readAsDataURL(file);
+      }
+    });
+
+    // Geração de vídeo e desconto de moedas para o vídeo
+    const generateVideoBtn2 = document.getElementById('generate-video-btn-2');
+    generateVideoBtn2.addEventListener('click', function() {
+      if (moedas >= 50) {
+        moedas -= 50;
+        localStorage.setItem('moedas', moedas);
+        atualizarContadorMoedas();
+        alert(`Vídeo gerado com sucesso! Saldo restante: ${moedas} moedas.`);
+      } else {
+        alert('Saldo insuficiente para gerar o vídeo. Adquira mais moedas.');
+      }
+    });
+
+    // Carregar a pré-visualização do áudio
+    const audioUpload = document.getElementById('audioUpload');
+    const audioPreview = document.getElementById('audioPreview');
+
+    audioUpload.addEventListener('change', function() {
+      const file = this.files[0];
+      if (file) {
+        const reader = new FileReader();
+        reader.onload = function(e) {
+          audioPreview.innerHTML = `<audio controls><source src="${e.target.result}" type="audio/mpeg"></audio>`;
+        }
+        reader.readAsDataURL(file);
+      }
+    });
+
+    // Geração de áudio e desconto de moedas para o áudio
+    const generateAudioBtn = document.getElementById('generate-audio-btn');
+    generateAudioBtn.addEventListener('click', function() {
+      if (moedas >= 50) {
+        moedas -= 50;
+        localStorage.setItem('moedas', moedas);
+        atualizarContadorMoedas();
+        alert(`Áudio gerado com sucesso! Saldo restante: ${moedas} moedas.`);
+      } else {
+        alert('Saldo insuficiente para gerar o áudio. Adquira mais moedas.');
+      }
+    });
+
+    // Geração de texto e desconto de moedas para o texto
+    const generateTextBtn = document.getElementById('generate-text-btn');
+    generateTextBtn.addEventListener('click', function() {
+      if (moedas >= 50) {
+        moedas -= 50;
+        localStorage.setItem('moedas', moedas);
+        atualizarContadorMoedas();
+        alert(`Texto gerado com sucesso! Saldo restante: ${moedas} moedas.`);
+      } else {
+        alert('Saldo insuficiente para gerar o texto. Adquira mais moedas.');
+      }
+    });
+
+    // Inicializa o contador de moedas
+    atualizarContadorMoedas();
+  </script>
+</body>
+</html>

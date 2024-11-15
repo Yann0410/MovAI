@@ -1,0 +1,237 @@
+/* Reset básico */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+  
+  /* Body - Centralização da área de conteúdo */
+  body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    font-family: Arial, sans-serif;
+    background: linear-gradient(135deg, #6a0dad, #007bff); /* Degradê roxo e azul */
+    color: #333;
+    padding-top: 80px; /* Espaço para navbar */
+  }
+  
+  /* Navbar */
+  #menu {
+    background-color: #333;
+    padding: 10px 0;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 1000;
+  }
+  
+  #navegacao {
+    list-style: none;
+    text-align: center;
+  }
+  
+  #navegacao li {
+    display: inline-block;
+    margin: 0 15px;
+  }
+  
+  #navegacao a {
+    color: #fff;
+    text-decoration: none;
+    font-size: 16px;
+  }
+  
+  #navegacao a:hover {
+    color: #ddd;
+  }
+  
+  /* Container principal do conteúdo */
+  .container {
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    width: 90%;
+    max-width: 800px;
+    margin-top: 20px; /* Espaço extra abaixo da navbar */
+    text-align: center;
+  }
+  
+  /* Estilos para títulos e parágrafos */
+  h2 {
+    color: #6a0dad;
+    text-align: center;
+    margin-bottom: 20px;
+  }
+  
+  p {
+    font-size: 16px;
+    line-height: 1.6;
+    color: #555;
+    margin-bottom: 20px;
+    text-align: center;
+  }
+  
+  /* Seções individuais */
+  .section {
+    margin-bottom: 30px;
+    text-align: center;
+  }
+  
+  /* Estilos da Equipe */
+  .team-container {
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: wrap;
+    gap: 20px;
+  }
+  
+  .team-member {
+    background-color: #f9f9f9;
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    padding: 15px;
+    width: 100%;
+    max-width: 180px;
+    text-align: center;
+  }
+  
+  .team-member h3 {
+    color: #333;
+    font-size: 18px;
+    margin-bottom: 5px;
+  }
+  
+  .team-member p {
+    font-size: 14px;
+    color: #777;
+  }
+  
+  /* Contador de moedas */
+  .contador-moedas {
+    padding-top: 8px;
+  }
+/* Reset básico */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+  
+  /* Body - Centralização da área de conteúdo */
+  body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    font-family: Arial, sans-serif;
+    background: linear-gradient(135deg, #6a0dad, #007bff); /* Degradê roxo e azul */
+    color: #333;
+    padding-top: 80px; /* Espaço para navbar */
+  }
+  
+  /* Navbar */
+  #menu {
+    background-color: #333;
+    padding: 10px 0;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 1000;
+  }
+  
+  #navegacao {
+    list-style: none;
+    text-align: center;
+  }
+  
+  #navegacao li {
+    display: inline-block;
+    margin: 0 15px;
+  }
+  
+  #navegacao a {
+    color: #fff;
+    text-decoration: none;
+    font-size: 16px;
+  }
+  
+  #navegacao a:hover {
+    color: #ddd;
+  }
+  
+  /* Container principal do conteúdo */
+  .container {
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    width: 90%;
+    max-width: 800px;
+    margin-top: 20px; /* Espaço extra abaixo da navbar */
+    text-align: center;
+  }
+  
+  /* Estilos para títulos e parágrafos */
+  h2 {
+    color: #6a0dad;
+    text-align: center;
+    margin-bottom: 20px;
+  }
+  
+  p {
+    font-size: 16px;
+    line-height: 1.6;
+    color: #555;
+    margin-bottom: 20px;
+    text-align: center;
+  }
+  
+  /* Seções individuais */
+  .section {
+    margin-bottom: 30px;
+    text-align: center;
+  }
+  
+  /* Estilos da Equipe */
+  .team-container {
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: wrap;
+    gap: 20px;
+  }
+  
+  .team-member {
+    background-color: #f9f9f9;
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    padding: 15px;
+    width: 100%;
+    max-width: 180px;
+    text-align: center;
+  }
+  
+  .team-member h3 {
+    color: #333;
+    font-size: 18px;
+    margin-bottom: 5px;
+  }
+  
+  .team-member p {
+    font-size: 14px;
+    color: #777;
+  }
+  
+  /* Contador de moedas */
+  .contador-moedas {
+    padding-top: 8px;
+  }
+    
+
+  .contador-moedas {
+    color: white;
+  }

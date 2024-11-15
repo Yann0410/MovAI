@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Comprar Moedas - MovAI</title>
+    <link rel="stylesheet" href="css/estiloCompraMoedas.css">
+</head>
+<body>
+    <!-- Barra de navegação -->
+    <nav>
+        <ul>
+            <li><a href="Home.html">Home</a></li>
+            <li><a href="Cadastro.html">Cadastro</a></li>
+            <li><a href="Login.html">Login</a></li>
+            <li><a href="Sobre.html">Sobre</a></li>
+        </ul>
+    </nav>
+
+    <!-- Contador de Moedas -->
+    <div class="contador-moedas">
+        <h3>Moedas Disponíveis: <span id="moedas-contador">0</span></h3>
+    </div>
+
+    <!-- Formulário de Compra de Moedas -->
+    <div class="compra-container">
+        <h2>Comprar Moedas</h2>
+        <form action="processar_compra.php" method="post" onsubmit="adicionarMoedas(); return false;">
+            <label for="quantidade">Quantidade de Moedas:</label>
+            <select id="quantidade" name="quantidade" required onchange="atualizarResumo()">
+                <option value="100">100 Moedas - R$ 10,00</option>
+                <option value="500">500 Moedas - R$ 30,00</option>
+                <option value="1000">1000 Moedas - R$ 45,00</option>
+            </select>
+
+            <div class="resumo" id="resumo-compra">
+                Total: R$ 10,00
+            </div>
+
+            <button type="submit">Confirmar Compra</button>
+        </form>
+    </div>
+
+    <script>
+        // Carrega a quantidade inicial de moedas do localStorage
+        let moedas = parseInt(localStorage.getItem('moedas')) || 100;
+
+        // Atualiza o contador de moedas na tela
+        function atualizarContadorMoedas() {
+            document.getElementById('moedas-contador').innerText = moedas;
+        }
+
+        // Atualiza o resumo do valor total da compra
+        function atualizarResumo() {
+            const select = document.getElementById('quantidade');
+            const resumo = document.getElementById('resumo-compra');
+            const valores = {
+                "100": "R$ 10,00",
+                "500": "R$ 30,00",
+                "1000": "R$ 45,00",
+            };
+            resumo.innerText = `Total: ${valores[select.value]}`;
+        }
+
+        // Função para adicionar as moedas compradas ao saldo do usuário
+        function adicionarMoedas() {
+            const select = document.getElementById('quantidade');
+            const quantidadeSelecionada = parseInt(select.value);
+            moedas += quantidadeSelecionada; // Adiciona a quantidade selecionada ao total de moedas
+            localStorage.setItem('moedas', moedas); // Salva o saldo atualizado no localStorage
+            atualizarContadorMoedas(); // Atualiza o contador na tela
+            alert(`Compra confirmada! Você recebeu ${quantidadeSelecionada} moedas.`);
+        }
+
+        // Inicializa o contador de moedas ao carregar a página
+        window.onload = atualizarContadorMoedas;
+    </script>
+</body>
+</html>
